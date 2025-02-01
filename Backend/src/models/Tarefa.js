@@ -26,7 +26,6 @@ const Tarefa = sequelize.define("Tarefa", {
   },
 });
 
-// Definindo a relação: Um projeto pode ter várias tarefas
 Projeto.hasMany(Tarefa, { onDelete: "CASCADE" });
 Tarefa.belongsTo(Projeto);
 
