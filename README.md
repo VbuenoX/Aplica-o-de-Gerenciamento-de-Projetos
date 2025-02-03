@@ -1,208 +1,218 @@
-Documentação da API - Gerenciamento de Projetos
+````markdown
+# Documentação da API - Gerenciamento de Projetos
+
 Esta API permite criar e gerenciar projetos e suas respectivas tarefas. A seguir, a descrição dos endpoints disponíveis, incluindo exemplos de requisições e respostas.
 
-Base URL
-bash
-Copiar
-Editar
-http://localhost:3000/api
-Observação: Durante o desenvolvimento, o servidor roda na porta 3000 (ou conforme configurado em .env).
+## Base URL
 
-Endpoints
-Projetos
+```
+http://localhost:3001/api
+```
 
-1. Criar um Projeto
-   Endpoint: POST /api/projetos
+> **Observação:** Durante o desenvolvimento, o servidor roda na porta `3001` (ou conforme configurado em `.env`).
 
-Descrição: Cria um novo projeto.
+---
 
-Corpo da Requisição (JSON):
+## Endpoints
 
-json
-Copiar
-Editar
-{
-"nome": "Projeto Exemplo",
-"descricao": "Descrição do projeto",
-"dataInicio": "2025-02-01"
-}
-Resposta de Sucesso (201 - Created):
+### Projetos
 
-json
-Copiar
-Editar
-{
-"id": 1,
-"nome": "Projeto Exemplo",
-"descricao": "Descrição do projeto",
-"dataInicio": "2025-02-01T00:00:00.000Z"
-} 2. Listar Todos os Projetos
-Endpoint: GET /api/projetos
+#### 1. Criar um Projeto
 
-Descrição: Retorna uma lista com todos os projetos cadastrados.
+- **Endpoint:** `POST /api/projetos`
+- **Descrição:** Cria um novo projeto.
+- **Corpo da Requisição (JSON):**
 
-Resposta de Sucesso (200 - OK):
+  ```json
+  {
+    "nome": "Projeto Exemplo",
+    "descricao": "Descrição do projeto",
+    "dataInicio": "2025-02-01"
+  }
+  ```
 
-json
-Copiar
-Editar
-[
-{
-"id": 1,
-"nome": "Projeto Exemplo",
-"descricao": "Descrição do projeto",
-"dataInicio": "2025-02-01T00:00:00.000Z"
-},
-{
-"id": 2,
-"nome": "Outro Projeto",
-"descricao": "Outra descrição",
-"dataInicio": "2025-03-15T00:00:00.000Z"
-}
-]
-Tarefas
+- **Resposta de Sucesso (201 - Created):**
 
-1. Criar uma Tarefa
-   Endpoint: POST /api/tarefas
+  ```json
+  {
+    "id": 1,
+    "nome": "Projeto Exemplo",
+    "descricao": "Descrição do projeto",
+    "dataInicio": "2025-02-01T00:00:00.000Z"
+  }
+  ```
 
-Descrição: Cria uma nova tarefa associada a um projeto.
+#### 2. Listar Todos os Projetos
 
-Corpo da Requisição (JSON):
+- **Endpoint:** `GET /api/projetos`
+- **Descrição:** Retorna uma lista com todos os projetos cadastrados.
+- **Resposta de Sucesso (200 - OK):**
 
-json
-Copiar
-Editar
-{
-"projetoId": 1,
-"titulo": "Tarefa Exemplo",
-"descricao": "Descrição da tarefa",
-"dataConclusao": "2025-02-10"
-}
-Resposta de Sucesso (201 - Created):
+  ```json
+  [
+    {
+      "id": 1,
+      "nome": "Projeto Exemplo",
+      "descricao": "Descrição do projeto",
+      "dataInicio": "2025-02-01T00:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "nome": "Outro Projeto",
+      "descricao": "Outra descrição",
+      "dataInicio": "2025-03-15T00:00:00.000Z"
+    }
+  ]
+  ```
 
-json
-Copiar
-Editar
-{
-"id": 1,
-"titulo": "Tarefa Exemplo",
-"descricao": "Descrição da tarefa",
-"dataConclusao": "2025-02-10T00:00:00.000Z",
-"concluida": false,
-"projetoId": 1
-} 2. Listar Tarefas de um Projeto
-Endpoint: GET /api/tarefas/:projetoId
+---
 
-Descrição: Retorna todas as tarefas associadas a um projeto específico.
+### Tarefas
 
-Parâmetro de URL:
+#### 1. Criar uma Tarefa
 
-projetoId (número) - ID do projeto.
-Exemplo de URL: GET /api/tarefas/1
+- **Endpoint:** `POST /api/tarefas`
+- **Descrição:** Cria uma nova tarefa associada a um projeto.
+- **Corpo da Requisição (JSON):**
 
-Resposta de Sucesso (200 - OK):
+  ```json
+  {
+    "projetoId": 1,
+    "titulo": "Tarefa Exemplo",
+    "descricao": "Descrição da tarefa",
+    "dataConclusao": "2025-02-10"
+  }
+  ```
 
-json
-Copiar
-Editar
-[
-{
-"id": 1,
-"titulo": "Tarefa Exemplo",
-"descricao": "Descrição da tarefa",
-"dataConclusao": "2025-02-10T00:00:00.000Z",
-"concluida": false,
-"projetoId": 1
-}
-] 3. Marcar uma Tarefa como Concluída
-Endpoint: PATCH /api/tarefas/:id/concluir
+- **Resposta de Sucesso (201 - Created):**
 
-Descrição: Marca a tarefa identificada por id como concluída.
+  ```json
+  {
+    "id": 1,
+    "titulo": "Tarefa Exemplo",
+    "descricao": "Descrição da tarefa",
+    "dataConclusao": "2025-02-10T00:00:00.000Z",
+    "concluida": false,
+    "projetoId": 1
+  }
+  ```
 
-Parâmetro de URL:
+#### 2. Listar Tarefas de um Projeto
 
-id (número) - ID da tarefa.
-Exemplo de URL: PATCH /api/tarefas/1/concluir
+- **Endpoint:** `GET /api/tarefas/:projetoId`
+- **Descrição:** Retorna todas as tarefas associadas a um projeto específico.
+- **Parâmetro de URL:**
+  - `projetoId` (número) - ID do projeto.
+- **Exemplo de URL:** `GET /api/tarefas/1`
+- **Resposta de Sucesso (200 - OK):**
 
-Resposta de Sucesso (200 - OK):
+  ```json
+  [
+    {
+      "id": 1,
+      "titulo": "Tarefa Exemplo",
+      "descricao": "Descrição da tarefa",
+      "dataConclusao": "2025-02-10T00:00:00.000Z",
+      "concluida": false,
+      "projetoId": 1
+    }
+  ]
+  ```
 
-json
-Copiar
-Editar
-{
-"message": "Tarefa concluída!"
-} 4. Excluir uma Tarefa
-Endpoint: DELETE /api/tarefas/:id
+#### 3. Marcar uma Tarefa como Concluída
 
-Descrição: Exclui a tarefa identificada por id.
+- **Endpoint:** `PATCH /api/tarefas/:id/concluir`
+- **Descrição:** Marca a tarefa identificada por `id` como concluída.
+- **Parâmetro de URL:**
+  - `id` (número) - ID da tarefa.
+- **Exemplo de URL:** `PATCH /api/tarefas/1/concluir`
+- **Resposta de Sucesso (200 - OK):**
 
-Parâmetro de URL:
+  ```json
+  {
+    "message": "Tarefa concluída!"
+  }
+  ```
 
-id (número) - ID da tarefa.
-Exemplo de URL: DELETE /api/tarefas/1
+#### 4. Excluir uma Tarefa
 
-Resposta de Sucesso (200 - OK):
+- **Endpoint:** `DELETE /api/tarefas/:id`
+- **Descrição:** Exclui a tarefa identificada por `id`.
+- **Parâmetro de URL:**
+  - `id` (número) - ID da tarefa.
+- **Exemplo de URL:** `DELETE /api/tarefas/1`
+- **Resposta de Sucesso (200 - OK):**
 
-json
-Copiar
-Editar
-{
-"message": "Tarefa excluída com sucesso!"
-}
-Considerações Gerais
-Formato de Datas:
-As datas são enviadas e retornadas no padrão ISO 8601 (YYYY-MM-DDTHH:MM:SS.sssZ).
+  ```json
+  {
+    "message": "Tarefa excluída com sucesso!"
+  }
+  ```
 
-Tratamento de Erros:
-Em caso de erro (por exemplo, projeto não encontrado ou dados incompletos), a API retornará um objeto JSON com a propriedade error e o status HTTP correspondente (como 404 ou 500).
+---
 
-CORS:
-Se estiver integrando com um frontend que roda em outra origem, certifique-se de que o middleware de CORS está configurado no backend.
+## Considerações Gerais
 
-Exemplos de Uso com cURL
-Criar um Projeto
-bash
-Copiar
-Editar
+- **Formato de Datas:**  
+  As datas são enviadas e retornadas no padrão ISO 8601 (`YYYY-MM-DDTHH:MM:SS.sssZ`).
+
+- **Tratamento de Erros:**  
+  Em caso de erro (por exemplo, projeto não encontrado ou dados incompletos), a API retornará um objeto JSON com a propriedade `error` e o status HTTP correspondente (como 404 ou 500).
+
+- **CORS:**  
+  Se estiver integrando com um frontend que roda em outra origem, certifique-se de que o middleware de CORS está configurado no backend.
+
+---
+
+## Exemplos de Uso com cURL
+
+### Criar um Projeto
+
+```bash
 curl -X POST http://localhost:3000/api/projetos \
- -H "Content-Type: application/json" \
- -d '{
-"nome": "Projeto Exemplo",
-"descricao": "Descrição do projeto",
-"dataInicio": "2025-02-01"
-}'
-Listar Projetos
-bash
-Copiar
-Editar
+  -H "Content-Type: application/json" \
+  -d '{
+        "nome": "Projeto Exemplo",
+        "descricao": "Descrição do projeto",
+        "dataInicio": "2025-02-01"
+      }'
+```
+
+### Listar Projetos
+
+```bash
 curl http://localhost:3000/api/projetos
-Criar uma Tarefa
-bash
-Copiar
-Editar
+```
+
+### Criar uma Tarefa
+
+```bash
 curl -X POST http://localhost:3000/api/tarefas \
- -H "Content-Type: application/json" \
- -d '{
-"projetoId": 1,
-"titulo": "Tarefa Exemplo",
-"descricao": "Descrição da tarefa",
-"dataConclusao": "2025-02-10"
-}'
-Listar Tarefas de um Projeto
-bash
-Copiar
-Editar
+  -H "Content-Type: application/json" \
+  -d '{
+        "projetoId": 1,
+        "titulo": "Tarefa Exemplo",
+        "descricao": "Descrição da tarefa",
+        "dataConclusao": "2025-02-10"
+      }'
+```
+
+### Listar Tarefas de um Projeto
+
+```bash
 curl http://localhost:3000/api/tarefas/1
-Marcar uma Tarefa como Concluída
-bash
-Copiar
-Editar
+```
+
+### Marcar uma Tarefa como Concluída
+
+```bash
 curl -X PATCH http://localhost:3000/api/tarefas/1/concluir
-Excluir uma Tarefa
-bash
-Copiar
-Editar
+```
+
+### Excluir uma Tarefa
+
+```bash
 curl -X DELETE http://localhost:3000/api/tarefas/1
-Conclusão
-Essa documentação cobre os principais endpoints da sua API de Gerenciamento de Projetos.
-Você pode expandir essa documentação conforme novas funcionalidades forem adicionadas ou melhorar as descrições conforme necessário. Se precisar de mais ajustes ou informações, estou à disposição!
+```
+
+---
